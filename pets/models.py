@@ -1,22 +1,33 @@
 from django.db import models
 
-
 # Create your models here.
+
+from django.db import models
+
+
 class Pet(models.Model):
-    KIND_CHOICES = (
-        ('C', 'cat'),
-        ('D', 'dog'),
-        ('P', 'parrot')
+    DOG = 'dog'
+    CAT = 'cat'
+    PARROT = 'parrot'
+    UNKNOWN = 'unknown'
+
+    PET_TYPES = (
+        (DOG, 'Dog'),
+        (CAT, 'Cat'),
+        (PARROT, 'Parrot'),
+        (UNKNOWN, 'Unknown'),
     )
-    type = models.CharField(max_length=6, choices=KIND_CHOICES)
+
+    type = models.CharField(max_length=7, choices=PET_TYPES, default=UNKNOWN)
     name = models.CharField(max_length=6, blank=False)
-    age = models.PositiveIntegerField(blank=False)
+    age = models.IntegerField(blank=False)
     description = models.TextField(blank=False)
     image_url = models.URLField(blank=False)
 
     def __str__(self):
-        return f' i am {self.name} {self.age} years old'
+        return f'{self.id}; {self.name}; {self.age}'
 
 
 class Like(models.Model):
-    pet = models.ForeignKey(Pet, on_delete=models.DO_NOTHING)
+    pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
+    test = models.CharField(max_length=2, default=0)

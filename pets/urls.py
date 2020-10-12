@@ -3,6 +3,7 @@ from django.urls import path
 from pets import views
 
 urlpatterns = [
-    path('', views.pet_all, name='pets'),
-    path('details/<int:pk>', views.pet_detail, name='details'),
+    path('', views.list_pets, name='pets'),
+    path('details/<int:pk>/', views.show_pet_details, name='details'),
+    path('like/<int:pk>/', views.like_pet, name='like pet'),
 ]
